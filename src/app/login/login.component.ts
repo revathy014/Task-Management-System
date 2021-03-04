@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit{
   }
   
   onSubmit(){
-    console.log("Submiited")
+    console.log("Submission Succesfull")
   }
   onLoadRegister(){
     this.router.navigate(['./registration'])
