@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-md" style="background-color:rgb(0, 0, 102); padding:3px;">
+      <a class="navbar-brand" href="#">
+          <img [src]="icon_img"  alt="Task Manager" width="50" height="50" style="border-radius:10px;">
+      </a>&nbsp;&nbsp;
+      <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav  navbar-left">
+          <li class="nav-item active">
+            <a routerLink="/home">Home</a>
+          </li>&nbsp;&nbsp;&nbsp;
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Employee</a>
+              <div class="dropdown-menu">
+                  <a routerLink="/registration" class="dropdown-item">Add Employee</a>
+                  <a routerLink="/users" class="dropdown-item">List Employee</a>
+              </div>
+            </li>&nbsp;&nbsp;&nbsp;
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Task</a>
+                <div class="dropdown-menu">
+                    <a routerLink="/tasks" class="dropdown-item">Add Task</a>
+                    <a routerLink="/home" class="dropdown-item">List Tasks</a>
+                </div>
+            </li>
+        </ul>
+      </div>
+      <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item active">
+            <button class="btns" (click)="logout()"><span class="glyphicon glyphicon-log-in"></span>Sign Out</button>
+        </li>
+      </ul>
+</nav>
+<div class="container-fluid"><br>
+    <div class="row">
+    </div><br><br>
+    <div class="row">
+        <div class="col-12" style="text-align:center;">
+          <span style="color:rgb(0, 0, 102); font-size:20px; font-style:normal;">Sort By Date</span>&nbsp;&nbsp;<input type="date" name="text" id="myInput" (change)="onChangeEvent($event)" >
+        </div>
+    </div><br><br><br>
+    &nbsp;&nbsp;<div class="row">
+          <table id="myTable" style="margin-left:20px;margin-right:20px; width:100%;">
+              <tr>
+                <th style="width:10%;">Task ID</th>
+                <th style="width:10%;">Assigned Date</th>
+                <th style="width:10%;" style="width:20%;">Assigned To</th>
+                <th style="width:30%;">Task Name</th>
+                <th style="width:10%;">Priority</th>
+                <th style="width:15%;">Status</th>
+                <th style="width:10%;">Manage</th>              
+              </tr>
+              <tr *ngFor="let task  of tasks">
+                    <td>{{task.id}}</td>
+                    <td>{{task.assigneddate|date:'dd MMM YYYY'}}</td>
+                    <td>{{task.assignedto}}</td>
+                    <td>{{task.taskname}}</td>
+                    <td>
+                        <span class="badge badge-pill badge-danger " *ngIf="task.priority == 'High'" style="font-size:15px; color:white;">{{task.priority}}</span>&nbsp;
+                        <span class="badge badge-pill badge-secondary" *ngIf="task.priority == 'Medium'" style="font-size:15px; color:white">{{task.priority}}</span>&nbsp;
+                        <span class="badge badge-pill badge-success" *ngIf="task.priority == 'Low'" style="font-size:15px; color:white">{{task.priority}}</span>&nbsp;
+                    </td>
+                    <td>
+                        <span class="badge badge-pill badge-primary" *ngIf='task.status=="In Progress"' (click)='updateTask("Completed",task)' style="font-size:15px; text-align:center;">In Progress</span>&nbsp;
+                        <span class="badge badge-pill badge-success" *ngIf='task.status=="Completed"' (click)='updateTask("In Progress",task)' style="font-size:15px; text-align:center;">Completed</span>
+                    </td>
+                    <td>                      
+                        <span class="button is-small btn-danger"  (click)='deleteTask(task)'><img src="https://th.bing.com/th/id/OIP.9r7DOAr08rlsX9CvRSe6fQHaHa?w=168&h=180&c=7&o=5&dpr=1.25&pid=1.7" class="rounded" width="30" height="30"></span>
+                   </td>
+              </tr>
+          </table>
+    </div>
+</div> 
+<!-- <app-tasks> </app-tasks> -->
+

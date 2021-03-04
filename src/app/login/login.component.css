@@ -1,0 +1,38 @@
+button {
+    background-color:blue;
+    color: white;
+    padding: 8px;
+    margin: 1px;
+    border: none;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 20px;
+  }
+  h1{
+    font-size:35px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-style:oblique;
+  }
+  label{
+    font-size:18px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+  }
+  button:hover{
+    background-color:whitesmoke;
+    color:black;
+  }
+
+  .col-12{
+    font-size:30px;
+    color:white;
+    padding:30px;
+    text-align:center;
+    font-family:sans-serif;
+  }
+  
+.form-control{
+  border-radius: 20px;
+}
+  
+  
+  

@@ -1,0 +1,43 @@
+<div>
+  <nav class="navbar navbar-expand-sm" style="background-color:rgb(0, 0, 102);">
+    <a class="navbar-brand" href="#">
+        <img [src]="icon_img"  alt="Task Manager" width="50" height="50" style="border-radius:6px;">
+    </a>
+        <span class="navbar-text" style="color:white; font-size:20px;">Dashboard</span>
+        <ul class="nav navbar-nav ml-auto">
+            <li class="nav-item active">
+              <button class="signout" (click)="logout()"><span class="glyphicon glyphicon-log-in"></span>Sign Out</button>
+            </li>
+        </ul>
+    </nav>
+  </div>
+  <div class="container-fluid" style="background-color:rgb(230, 230, 230); width:100%; height:700px;"><br>
+      <div class="row"><br>
+            <br><img src="https://th.bing.com/th/id/OIP.11bZC6aGPW5YIMX-hDIU2gHaHa?w=186&h=186&c=7&o=5&dpr=1.25&pid=1.7" width="150" height="150"><br>
+            &nbsp;&nbsp;<h3 style="color:rgb(0, 0, 102); font-size:35px; padding:20px; font-family: Georgia;">Tasks</h3>
+             <br><br>
+      </div>
+      <hr style="border-color:blue;"><br>
+      <div class="row" style="float:right;">
+        &nbsp;&nbsp;<span style="color:rgb(0, 0, 102); font-size:22px;font-family: Georgia; ">Filter:</span>&nbsp;&nbsp;<input type="date" name="text" id="myInput" (change)="onChangeEvent($event)">
+      </div><br><br>
+      <div class="row">
+        <table id="myTable">
+          <tr>
+            <th style="width:20%;">Assigned Date</th>
+            <th style="width:20%;" style="width:20%;">Assigned To</th>
+            <th style="width:40%;">Task Name</th>
+            <th style="width:20%;">Status</th>
+        </tr>
+          <!-- <tr *ngFor ="let emp of employees">
+                <td>10-02-2021</td>
+                <td>John Joe</td>
+                <td>Task 1</td>
+                <td> In progress</td>
+          </tr> -->
+        </table>
+    </div>     
+</div>
+  
+
+
