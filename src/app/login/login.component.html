@@ -7,28 +7,43 @@
     </div>
     <div class="row">
         <div class="col-8" style="padding:0px ;margin:0px;">
-            <img src="https://th.bing.com/th/id/OIP.dc1rcvhLxVTWhN007QMQ_AHaDt?w=350&h=175&c=7&o=5&dpr=1.25&pid=1.7" style="width:100%; height:580px;">
+            <img src="https://th.bing.com/th/id/OIP.dc1rcvhLxVTWhN007QMQ_AHaDt?w=350&h=175&c=7&o=5&dpr=1.25&pid=1.7" style="width:100%; height:600px;">
         </div> 
         <div class="col-4" style="padding:60px; background-color:rgb(230, 230, 230)">
             <h2 style="font-size:40px; font-family:Georgia, 'Times New Roman', Times, serif;">Sign In</h2><br><br>
-                <form>
+                <form [formGroup]="loginForm">
                     <div class="form-group">
                         <label for="userName">Username</label><br>
-                        <input type="text" class="form-control col-lg-8" #signinemail placeholder="Username">
+                        <input type="text" class="form-control col-lg-8" formControlName="username" placeholder="Username">
+                        <div class="errors" *ngIf ="loginForm.get('username').invalid && (loginForm.get('username').touched || loginForm.get('username').dirty)">
+                            <div *ngIf="loginForm.get('username').hasError('required')">
+                               <span style="color:red; padding:10px;">Please enter username</span> 
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control col-lg-8"  #signinpassword placeholder="********">
+                        <input type="password" class="form-control col-lg-8"  formControlName="password" placeholder="********">
+                        <div class="errors" *ngIf ="loginForm.get('password').invalid && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+                            <div *ngIf="loginForm.get('password').hasError('required')">
+                               <span style="color:red; padding:10px;">Please enter password</span> 
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="usertype">User Type</label>
-                        <select  class="form-control col-lg-8" #usertype>
+                        <select  class="form-control col-lg-8" formControlName="usertype">
                             <option value="manager">Manager</option>
                             <option value="employee">Employee</option>
                         </select>
+                        <div class="errors" *ngIf ="loginForm.get('usertype').invalid && (loginForm.get('usertype').touched || loginForm.get('usertype').dirty)">
+                            <div *ngIf="loginForm.get('usertype').hasError('required')">
+                               <span style="color:red; padding:10px;">Select a User type</span> 
+                            </div>
+                        </div>
                     </div>
                     <div>
-                        <button type="submit" (click)="onSignin(signinemail.value, signinpassword.value, usertype.value)">Sign In</button><br>
+                        <button type="submit" (click)="onSignin(this.loginForm.value.username, this.loginForm.value.password, this.loginForm.value.usertype)">Sign In</button><br>
                         &nbsp;Don't have an account?&nbsp; <a routerLink="/registration">Sign Up</a>
                     </div>
                 </form>

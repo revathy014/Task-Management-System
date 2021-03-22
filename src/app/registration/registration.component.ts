@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Employee } from '../employee';
 import { TaskslistService } from '../taskslist.service';
 
@@ -18,18 +18,19 @@ export class RegistrationComponent implements OnInit {
   signuppassword: string
   employee : Employee = new Employee();
   emp_id :string
+  isCreated:boolean = false;
 
   constructor(private taskListService :TaskslistService) { }
   ngOnInit(): void {
       this.registrationForm = new FormGroup({
-        'firstname' : new FormControl(),
-        'lastname' : new FormControl(),
+        'firstname' : new FormControl(null, Validators.required),
+        'lastname' : new FormControl(null, Validators.required),
         'dob': new FormControl(),
         'gender':new FormControl(),
-        'contactnumber' :new FormControl(),
-        'email': new FormControl(),
-        'username' : new FormControl(),
-        'password' : new FormControl(),
+        'contactnumber' :new FormControl(null, Validators.required),
+        'email': new FormControl(null, [Validators.required, Validators.email]),
+        'username' : new FormControl(null, Validators.required),
+        'password' : new FormControl(null, Validators.required),
         'address' :new FormControl()
       })
   }
@@ -60,6 +61,8 @@ export class RegistrationComponent implements OnInit {
     this.employee.address = this.registrationForm.controls.address.value
     this.employee.id = this.generateId()
     this.taskListService.createEmployee(this.employee);
+    this.isCreated = true;
+    this.registrationForm.reset();
   }
   
   handleLogout(){

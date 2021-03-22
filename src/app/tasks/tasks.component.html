@@ -31,6 +31,14 @@
       </li>
     </ul>
 </nav>
+<div *ngIf="isCreated">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Task Created Successfully</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-3"></div>
@@ -42,6 +50,11 @@
                             <div class="form-group">
                                 <label for="taskname">Task Name</label><br>
                                 <input type="text" class="form-control" formControlName = "taskname">
+                                <div class="errors" *ngIf ="createTaskForm.get('taskname').invalid && (createTaskForm.get('taskname').touched || createTaskForm.get('taskname').dirty)">
+                                    <div *ngIf="createTaskForm.get('taskname').hasError('required')">
+                                       <span style="color:red; padding:10px;">Please enter task name</span> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -55,6 +68,11 @@
                                        {{emp.id}} {{emp.name}}
                                     </option>
                                 </select>
+                                <div class="errors" *ngIf ="createTaskForm.get('assignedto').invalid && (createTaskForm.get('assignedto').touched || createTaskForm.get('assignedto').dirty)">
+                                    <div *ngIf="createTaskForm.get('assignedto').hasError('required')">
+                                       <span style="color:red; padding:10px;">Select an employee</span> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col">
@@ -82,10 +100,15 @@
                                     <option>Medium</option>
                                     <option>Low</option>
                                 </select>
+                                <div class="errors" *ngIf ="createTaskForm.get('priority').invalid && (createTaskForm.get('priority').touched || createTaskForm.get('priority').dirty)">
+                                    <div *ngIf="createTaskForm.get('priority').hasError('required')">
+                                       <span style="color:red; padding:10px;">Select an employee</span> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" (click)="createTask()">Create</button>
+                    <button class="btns1" type="submit" (click)="createTask()">Create</button>
                 </form>
             </div>
             <div class="col-3"></div>

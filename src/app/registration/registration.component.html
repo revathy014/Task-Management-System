@@ -31,6 +31,14 @@
       </li>
     </ul>
   </nav>
+<div *ngIf="isCreated">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Registration Successfull</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
 <div class="container-fluid">
     <div class="row">
         <div class="col-3">
@@ -43,12 +51,22 @@
                         <div class="form-group">
                             <label for="fname">First Name</label>
                             <input type="text" class="form-control" formControlName = "firstname" placeholder="Enter your first name">
+                            <div class="errors" *ngIf ="registrationForm.get('firstname').invalid && (registrationForm.get('firstname').touched || registrationForm.get('firstname').dirty)">
+                                <div *ngIf="registrationForm.get('firstname').hasError('required')">
+                                   <span style="color:red; padding:10px;">Please enter the first name</span> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="lname">Last Name</label>
                             <input type="text" class="form-control" formControlName = "lastname" placeholder="Enter your last name">
+                            <div class="errors" *ngIf ="registrationForm.get('lastname').invalid && (registrationForm.get('lastname').touched || registrationForm.get('lastname').dirty)">
+                                <div *ngIf="registrationForm.get('lastname').hasError('required')">
+                                   <span style="color:red; padding:10px;">Please enter the last name</span> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -80,6 +98,11 @@
                         <div class="form-group">
                             <label for="email">Enter your Email ID</label>
                             <input type="email" class="form-control" formControlName = "email" placeholder="Enter your email">
+                            <div class="errors" *ngIf ="registrationForm.get('email').invalid && (registrationForm.get('email').touched || registrationForm.get('email').dirty)">
+                                <div *ngIf="registrationForm.get('email').hasError('required')">
+                                   <span style="color:red; padding:10px;">Please enter an email</span> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,13 +110,23 @@
                     <div class="col">
                         <div class="form-group">
                             <label for="userName">Username</label>
-                            <input type="text" class="form-control" #signupemail  formControlName ="username" placeholder="Enter a username">
+                            <input type="text" class="form-control" formControlName ="username" placeholder="Enter a username">
+                            <div class="errors" *ngIf ="registrationForm.get('username').invalid && (registrationForm.get('username').touched || registrationForm.get('username').dirty)">
+                                <div *ngIf="registrationForm.get('username').hasError('required')">
+                                   <span style="color:red; padding:10px;">Please enter username</span> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" #signuppassword  formControlName ="password" placeholder="********">
+                            <input type="password" class="form-control" formControlName ="password" placeholder="********">
+                            <div class="errors" *ngIf ="registrationForm.get('password').invalid && (registrationForm.get('password').touched || registrationForm.get('password').dirty)">
+                                <div *ngIf="registrationForm.get('password').hasError('required')">
+                                   <span style="color:red; padding:10px;">Please enter password</span> 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +136,7 @@
                         <textarea id="address" name="address" formControlName="address" rows="3" cols="98" placeholder="Enter your address here..."> </textarea>                   
                     </div>
                 </div>
-             <button type="submit" (click)="onSignup(signupemail.value, signuppassword.value)">Sign Up</button> 
+             <button  class="btns1" type="submit" (click)="onSignup(this.registrationForm.value.username, this.registrationForm.value.password)">Sign Up</button> 
             </form>
         </div>
         <div class="col-3"></div>

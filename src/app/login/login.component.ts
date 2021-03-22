@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskslistService } from '../taskslist.service';
 
@@ -15,7 +15,14 @@ export class LoginComponent implements OnInit{
   loginForm :FormGroup
   isSignedIn :boolean = false;
   icon_img : string ="/assets/task_icon.jpeg"
+
   ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      'username' : new FormControl(null, Validators.required),
+      'password' : new FormControl(null, Validators.required),
+      'usertype': new FormControl(null, Validators.required),
+    })
+    
       if (localStorage.getItem('user')!==null){
           this.isSignedIn = true;
       }
@@ -27,7 +34,7 @@ export class LoginComponent implements OnInit{
   async onSignin(email:string, password:string, type:string){
       await this.taskListService.signin(email,password)
       if (this.taskListService.isLoggedIn){
-            this.isSignedIn = true;
+            this.isSignedIn = true; 
             if(type=='manager'){
               this.router.navigate(['./home'])
             }

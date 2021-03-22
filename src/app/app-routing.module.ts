@@ -9,9 +9,10 @@ import { HomeComponent } from './home/home.component';
 import { UsersComponent } from './users/users.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { EmployeeComponent } from './employee/employee.component';
+// import { AutoLoginGuard } from './auto-login.guard';
 
 const routes :Routes = [
-    {path:'', pathMatch:'full',redirectTo:'login'},
+    {path:'', pathMatch:'full',redirectTo:'login' },
     {path:'home', component:HomeComponent},
     {path:'login', component:LoginComponent},
     {path:'registration', component:RegistrationComponent },

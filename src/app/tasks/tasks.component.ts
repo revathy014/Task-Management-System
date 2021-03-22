@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TaskslistService } from 'src/app/taskslist.service';
 import { Task } from '../task';
 import { map } from 'rxjs/operators';
@@ -20,15 +20,16 @@ export class TasksComponent implements OnInit {
   employees: any;
   assigned_to :any;
   assignedToId : any;
+  isCreated :boolean = false;
 
   constructor(private taskListService :TaskslistService) { }
   ngOnInit(): void {
       this.createTaskForm = new FormGroup({
-        'taskname' : new FormControl(),
-        'assignedto' : new FormControl(),
+        'taskname' : new FormControl(null, Validators.required),
+        'assignedto' : new FormControl(null, Validators.required),
         'assigneddate': new FormControl(),
         'status' : new FormControl(),
-        'priority': new FormControl()
+        'priority': new FormControl(null, Validators.required)
       })
       this.getEmployees();
   }
@@ -66,5 +67,7 @@ export class TasksComponent implements OnInit {
       this.task.priority = this.createTaskForm.controls.priority.value;
       this.task.id = this.generateId();
       this.taskListService.createTask(this.task);
+      this.isCreated = true;
+      this.createTaskForm.reset();
   }
 }

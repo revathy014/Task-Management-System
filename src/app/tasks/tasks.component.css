@@ -1,4 +1,4 @@
-button {
+.btns1 {
   background-color:rgb(0, 0, 102);
   color: white;
   padding: 8px 12px;
@@ -7,7 +7,7 @@ button {
   cursor: pointer;
   width: 100%;
 }
-button:hover{
+.btns1:hover{
   background-color:whitesmoke;
   color:blue;
 }
