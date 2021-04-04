@@ -1,2 +1,2 @@
 # Task-Management-System
-Task management software is used to manage your tasks, help with the estimation and scheduling, track dependencies, resources and milestones and help you make decisions when changes in priority are needed.
+Task management software is used to manage your tasks, help with the estimation and scheduling, track dependencies, resources and milestones and help you make decisions when changes in priority are needed.Task management can help either individual achieve goals, or groups of individuals collaborate and share knowledge for the accomplishment of collective goals.Tasks are also differentiated by complexity, from low to high.
