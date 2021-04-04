@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs';
 import { Employee } from './employee';
 import { Task } from './task';
@@ -94,8 +93,5 @@ export class TaskslistService {
     this.router.navigate(['./login'])
   }
 
-}
-function data(data: any) {
-  throw new Error('Function not implemented.');
 }
 
