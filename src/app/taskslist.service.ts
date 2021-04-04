@@ -4,6 +4,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Employee } from './employee';
 import { Task } from './task';
 
@@ -30,7 +31,6 @@ export class TaskslistService {
     this.tasksRef = db.list(this.dbPathTask);
 
   }
-  
   createEmployee(employee :Employee): void{
     this.employeesRef.push(employee);
   }
