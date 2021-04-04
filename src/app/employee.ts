@@ -1,7 +1,8 @@
 export class Employee {
     key:any;
     id:string;
-    name:string;
+    firstname:string;
+    lastname:string;
     dob:string;
     gender:string;
     contactnumber :number;

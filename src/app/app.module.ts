@@ -15,8 +15,12 @@ import { EmployeeComponent } from './employee/employee.component';
 import { TaskslistService } from './taskslist.service';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireDatabaseModule, AngularFireObject} from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
+import { SignupComponent } from './signup/signup.component';
+import { DataTablesModule } from 'angular-datatables';
+import { UpdatetaskComponent } from './updatetask/updatetask.component';
+import { UpdateuserComponent } from './updateuser/updateuser.component';
 
 const appRoutes:Routes=[]
 @NgModule({
@@ -28,6 +32,9 @@ const appRoutes:Routes=[]
     UsersComponent,
     TasksComponent,
     EmployeeComponent,
+    SignupComponent,
+    UpdatetaskComponent,
+    UpdateuserComponent,
   ],
   
   imports: [
@@ -37,6 +44,7 @@ const appRoutes:Routes=[]
     AppRoutingModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
+    DataTablesModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -48,6 +56,7 @@ const appRoutes:Routes=[]
       messagingSenderId: "383938613890",
       appId: "1:383938613890:web:b34caa300f5122d6d8da9b"
     }),
+    
   ],
   
   providers: [TaskslistService],

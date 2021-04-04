@@ -1,71 +1,54 @@
-
-.btns1 {
-    background-color:rgb(0, 0, 102);
-    color: white;
+.btn {
+  color:white;
     padding: 12px 18px;
     margin: 8px 0;
     border: none;
     cursor: pointer;
     width: 100%;
   }
-  .btns1:hover{
-    background-color:whitesmoke;
-    color:blue;
-  }
-  /* h1{
-    color:rgb(238, 25, 36);
-  }  */
-  h1{
+h1{
     text-align:center;
     font-size:35px;
-  }
-  label{
+}
+label{
     font-size:18px;
-  }
-  .container-fluid{
+}
+.container-fluid{
     display:grid;
     height: 750px;
     background-color:rgb(230, 230, 230)
-
-  }
-  
+}
 .btns{
   background-color:rgb(0, 0, 102);
-    color:white;
-    font-size:15px;
-    font-family:arial;
+  color:white;
+  font-size:20px;
+  font-family:arial;
 }
 .btns:hover{
   background-color: white;
   color:blue
 }
 a{
-  text-decoration:none;
-  color:white;
-  font-size:20px;
-  font-family:arial;
-  display:block;
-  padding: 5px;
-  /* margin: 5px 0; */
-  /* border: none; */
-  /* cursor: pointer; */
+    text-decoration:none;
+    color:white;
+    font-size:20px;
+    font-family:arial;
+    display:block;
+    padding: 5px;
+    margin: 5px 0;
+    border: none;
+    cursor: pointer;
 }
-a:hover{
-  background-color:rgb(230, 230, 230);
-  color:blue;
-}
-.dropdown {
-  position: relative;
-  display: inline-block;
+.dropdown{
+    position: relative;
+    display: inline-block;
 }
 .dropdown-toggle {
-    
     color: white;
     padding: 16px;
     font-size: 18px;
     border: none;
-  }
-
+}
 .dropdown-menu{
     display: none;
     position: absolute;
@@ -80,12 +63,10 @@ a:hover{
     padding: 7px 10px;
     text-decoration: none;
     display: block;
-  }
-  .dropdown-menu:hover{
-      background-color:rgb(230, 230, 230);
-      color:rgb(0, 0, 102)
-  }
-  
-  .dropdown-menu a:hover {background-color: #ddd;}
-  
-  .dropdown:hover .dropdown-menu {display: block;}
+}
+.dropdown-menu a:hover{
+    background-color: #ddd;
+}
+.dropdown:hover .dropdown-menu{
+    display: block;
+}

@@ -11,11 +11,11 @@
         </div> 
         <div class="col-4" style="padding:60px; background-color:rgb(230, 230, 230)">
             <h2 style="font-size:40px; font-family:Georgia, 'Times New Roman', Times, serif;">Sign In</h2><br><br>
-                <form [formGroup]="loginForm">
+                <form [formGroup]="loginForm" (ngSubmit)="onSignin(this.loginForm.value.username, this.loginForm.value.password, this.loginForm.value.usertype)">
                     <div class="form-group">
                         <label for="userName">Username</label><br>
                         <input type="text" class="form-control col-lg-8" formControlName="username" placeholder="Username">
-                        <div class="errors" *ngIf ="loginForm.get('username').invalid && (loginForm.get('username').touched || loginForm.get('username').dirty)">
+                        <div class="errors" *ngIf ="loginForm.get('username').invalid && loginForm.get('username').touched">
                             <div *ngIf="loginForm.get('username').hasError('required')">
                                <span style="color:red; padding:10px;">Please enter username</span> 
                             </div>
@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input type="password" class="form-control col-lg-8"  formControlName="password" placeholder="********">
-                        <div class="errors" *ngIf ="loginForm.get('password').invalid && (loginForm.get('password').touched || loginForm.get('password').dirty)">
+                        <div class="errors" *ngIf ="loginForm.get('password').invalid && loginForm.get('password').touched">
                             <div *ngIf="loginForm.get('password').hasError('required')">
                                <span style="color:red; padding:10px;">Please enter password</span> 
                             </div>
@@ -36,15 +36,15 @@
                             <option value="manager">Manager</option>
                             <option value="employee">Employee</option>
                         </select>
-                        <div class="errors" *ngIf ="loginForm.get('usertype').invalid && (loginForm.get('usertype').touched || loginForm.get('usertype').dirty)">
+                        <div class="errors" *ngIf ="loginForm.get('usertype').invalid && loginForm.get('usertype').touched">
                             <div *ngIf="loginForm.get('usertype').hasError('required')">
                                <span style="color:red; padding:10px;">Select a User type</span> 
                             </div>
                         </div>
                     </div>
                     <div>
-                        <button type="submit" (click)="onSignin(this.loginForm.value.username, this.loginForm.value.password, this.loginForm.value.usertype)">Sign In</button><br>
-                        &nbsp;Don't have an account?&nbsp; <a routerLink="/registration">Sign Up</a>
+                        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Sign In</button><br>
+                        &nbsp;Don't have an account?&nbsp; <a routerLink="/signup">Sign Up</a>
                     </div>
                 </form>
         </div>

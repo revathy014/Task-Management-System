@@ -2,6 +2,8 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output } fr
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TaskslistService } from '../taskslist.service';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
   selector: 'app-login',
@@ -30,6 +32,12 @@ export class LoginComponent implements OnInit{
           this.isSignedIn = false;
       }
   }
+  loginSuccessAlert(){
+    Swal.fire({
+        text: 'Logged In Successfully',
+        icon: 'success'
+      });
+  }
   
   async onSignin(email:string, password:string, type:string){
       await this.taskListService.signin(email,password)
@@ -42,16 +50,15 @@ export class LoginComponent implements OnInit{
               this.router.navigate(['./employee'])
             }
       }
-   }
+      this.loginSuccessAlert();
+  }
+
   handleLogout(){
       this.isSignedIn = false;
   }
   
   onSubmit(){
     console.log("Submission Succesfull")
-  }
-  onLoadRegister(){
-    this.router.navigate(['./registration'])
   }
 }
 

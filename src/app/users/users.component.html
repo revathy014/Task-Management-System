@@ -1,49 +1,44 @@
-<nav class="navbar navbar-expand-md" style="background-color:rgb(0, 0, 102); padding:3px;">
-  <a class="navbar-brand" href="#">
-      <img [src]="icon_img"  alt="Task Manager" width="50" height="50" style="border-radius:10px;">
-  </a>
-  <div id="navbarCollapse" class="collapse navbar-collapse">
-    <ul class="nav navbar-nav  navbar-left">
-      <li class="nav-item active">
-        <a routerLink="/home">Home</a>
-      </li>&nbsp;&nbsp;&nbsp;
-    </ul>
-    <ul class="nav navbar-nav navbar-left">
-        <li class="nav-item dropdown">
-          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Employee</a>
-          <div class="dropdown-menu">
-              <a routerLink="/registration" class="dropdown-item">Add Employee</a>
-              <a routerLink="/users" class="dropdown-item">List Employee</a>
-          </div>
-        </li>&nbsp;&nbsp;&nbsp;
+<nav class="navbar navbar-expand" style="background-color:rgb(0, 0, 102); padding:3px;">
+    <a class="navbar-brand" href="#">
+        <img [src]="icon_img"  alt="Task Manager" width="50" height="50" style="border-radius:10px;">
+    </a>&nbsp;&nbsp;
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav  navbar-right">
+          <li class="nav-item active">
+              <a routerLink="/home">Home</a>
+          </li>&nbsp;&nbsp;&nbsp;
+      </ul>
+      <ul class="nav navbar-nav navbar-left">
           <li class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Task</a>
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Employee</a>
             <div class="dropdown-menu">
-                <a routerLink="/tasks" class="dropdown-item">Add Task</a>
-                <a routerLink="/home" class="dropdown-item">List Tasks</a>
+                <a routerLink="/registration" class="dropdown-item">Add Employee</a>
+                <a routerLink="/users" class="dropdown-item">List Employees</a>
             </div>
-        </li>
-    </ul>
+          </li>&nbsp;&nbsp;&nbsp;
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Task</a>
+              <div class="dropdown-menu">
+                  <a routerLink="/tasks" class="dropdown-item">Add Task</a>
+                  <a routerLink="/home" class="dropdown-item">List Tasks</a>
+              </div>
+          </li>
+      </ul>
   </div>
   <ul class="nav navbar-nav ml-auto">
-    <li class="nav-item active">
-        <button class="btns" (click)="logout()"><span class="glyphicon glyphicon-log-in"></span>Sign Out</button>
-    </li>
+      <li class="nav-item active">
+          <button class="btns" (click)="logout()"><span class="glyphicon glyphicon-log-in"></span>Sign Out</button>
+      </li>
   </ul>
 </nav>
-<div class="container-fluid"><br><br><br>
-    <div class="row" style="padding-left:30px;padding-top:5px;">
-        &nbsp;&nbsp;&nbsp;<img src ="https://th.bing.com/th/id/OIP.m-cHuMECEUfOuSTyMedaawHaHa?w=212&h=212&c=7&o=5&dpr=1.25&pid=1.7"  class="rounded-circle" width="70" height="70">&nbsp;<span style="padding:18px; font-size:25px; font-family:Georgia; color:rgb(0, 0, 102);">Employees</span>
+<div class="container-fluid"><br>
+  <div class="row" style="margin:25px;">
+    <div class="col-12" style="text-align:right; padding-right:0px;">
+      <input type="text" name="search" id="myInput" placeholder="Type here to search" size="23" (change)="onChangeEvent($event)">
+      <img src="https://th.bing.com/th/id/OIP.q4K1yzOrp8xCO0HkQMbZ1AHaHa?w=171&h=180&c=7&o=5&dpr=1.25&pid=1.7" 
+           class="image" title="Reset" width="29" height="30" (click)="clearData($event)" style="border:1px solid black;">
     </div><br><br>
-    <div class="row">
-        <div class="col">
-          <span style="padding-left:40px; font-size:22px; color:rgb(0, 0, 102); font-family:Georgia;">Search:</span>&nbsp;<input type="text" name="search" id="myInput" placeholder="Type here to search" (change)="onChangeEvent($event)">
-        </div>
-        <div class="col">
-       </div>
-    </div><br>
-    <div class="row" style="margin:25px;">
-          <table id="myTable">
+    <table id="myTable">
               <tr>
                   <th>Employee ID</th>
                   <th>Employee Name</th>
@@ -53,14 +48,18 @@
               </tr>
               <tr *ngFor="let emp of employees">
                   <td>{{emp.id}}</td>
-                  <td>{{emp.name}}</td>
+                  <td>{{emp.firstname + ' ' + emp.lastname}}</td>
                   <td>{{emp.dob |date:'dd MMM YYYY'}}</td>
                   <td>
-                    <span class="badge badge-pill badge-danger" *ngIf='emp.active' (click)='updateActive(false,emp)' style="font-size:15px; text-align:center;">Inactive</span>&nbsp;
-                    <span class="badge badge-pill badge-success" *ngIf='!emp.active' (click)='updateActive(true,emp)' style="font-size:15px; text-align:center;">Active</span>
-                  </td>
-                  <td>                      
-                    <span class="button is-small btn-danger"  (click)='deleteEmployee(emp)'><img src="https://th.bing.com/th/id/OIP.9r7DOAr08rlsX9CvRSe6fQHaHa?w=168&h=180&c=7&o=5&dpr=1.25&pid=1.7" class="rounded" width="30" height="30"></span></td>
+                    <span class="badge badge-pill badge-danger" *ngIf='emp.active' (click)='activeStatusAlert(false)' [routerLink] = "['/users',emp]" style="font-size:15px; text-align:center;">Inactive</span>&nbsp;
+                    <span class="badge badge-pill badge-success" *ngIf='!emp.active' (click)='activeStatusAlert(true)' [routerLink] = "['/users',emp]" style="font-size:15px; text-align:center;">Active</span>
+                  </td>  
+                    <td>                      
+                      <img src="https://th.bing.com/th/id/OIP.0afqsLQAKWIO6WZ51kKU7AHaHa?w=206&h=206&c=7&o=5&dpr=1.25&pid=1.7" 
+                            class="image rounded-circle" width="30" height="30" title="Edit" [routerLink]="['/updateuser',emp]"/>
+                      &nbsp;<img src="https://th.bing.com/th/id/OIP.9r7DOAr08rlsX9CvRSe6fQHaHa?w=168&h=180&c=7&o=5&dpr=1.25&pid=1.7" 
+                          class="image rounded" width="28" height="28" title="Delete" [routerLink]="['/users',emp.key]" (click)="deleteEmployeeAlert()"/>                
+                    </td>                    
               </tr>
           </table>
       </div>

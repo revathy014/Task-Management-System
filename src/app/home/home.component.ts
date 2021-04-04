@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ViewChild, AfterViewInit, Output, EventEmitter, Input, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskslistService } from '../taskslist.service';
 import { map } from 'rxjs/operators';
 import { Task } from '../task';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {DataTablesModule} from 'angular-datatables';
 
+declare var $: any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,17 +18,75 @@ export class HomeComponent implements OnInit  {
   tasks:any;
   icon_img : string ="/assets/task_icon.jpeg"
   today = new Date().toJSON().slice(0,10)
+  deleteKey :string;
 
-  constructor(private router:Router, private tasklistService :TaskslistService) { }
+  constructor(private router:Router, private route: ActivatedRoute, private tasklistService :TaskslistService) { }
+  dtOptions: DataTables.Settings = {};
+  task_key : string;
   
   ngOnInit() {
     this.getTasksList();
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 6,
+      processing: true
+    };
+    this.task_key =this.route.snapshot.params['key'];
+
+  }
+
+  deleteTaskAlert(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this data!',
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      
+      if (result.value) {
+        
+      Swal.fire(
+        this.deleteTask(),
+        'Deleted!',
+        'Your imaginary file has been deleted.',
+        'success'
+      )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+      )
+      }
+    })
+  }
+
+  statusChangeAlert(status:string, task:any){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Your status will be changed',
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonText: 'Yes, change it!',
+      cancelButtonText: 'No, keep it'
+    })
+    .then((result) => {
+      if (result.value) {
+      Swal.fire(
+        this.updateStatus(status, task),
+        'Status Changed!'
+      )} 
+      else if (result.dismiss === Swal.DismissReason.cancel){
+      Swal.fire(
+        'Cancelled',
+      )
+      }
+    })
   }
 
   @Input() task: Task;
  
   @Output() isLogout = new EventEmitter<void>()
-
+  
   logout(){
     this.tasklistService.logout()
     this.isLogout.emit()
@@ -47,18 +108,27 @@ export class HomeComponent implements OnInit  {
     });
   }
 
-  updateTask(status: string,task:Task) {
+  updateStatus(status:string, task:any) {
+    console.log("Staus",status, this.task_key);
     this.tasklistService
-      .updateTask(task.key, { status: status })
+      .updateTask(task, { status:status})
       .catch(err => console.log(err));
   }
  
-  deleteTask(task:Task) {
+  deleteTask() {
+    this.deleteKey = this.route.snapshot.params['id'];
+    console.log("keyyy",this.deleteKey)
     this.tasklistService
-      .deleteTask(task.key)
+      .deleteTask(this.deleteKey)
       .catch(err => console.log(err));
   }
- 
+  clearData($event){
+    let search_date;
+    search_date= document.getElementById("myInput");
+    search_date.value = ' ';
+    this.getTasksList();
+  }
+
   onChangeEvent($event){
     let input, filter, table, tr, td, i, txtValue, newdate : any ,formatted_date:any;
     let months = ["Jan", "Feb", "Mar","Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TaskslistService } from '../taskslist.service';
 import { map } from 'rxjs/operators';
 import { Employee } from '../employee';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
 
 @Component({
   selector: 'app-users',
@@ -13,13 +15,16 @@ export class UsersComponent implements OnInit {
 
   employees: any;
   icon_img : string ="/assets/task_icon.jpeg"
-  
-  constructor(private router:Router, private tasklistService :TaskslistService) { }
+  deleteKey:string;
+  emp_key : string;
+  constructor(private tasklistService :TaskslistService, private router:Router, private route: ActivatedRoute) { }
 
   @Input() employee: Employee;
 
   ngOnInit(){
       this.getEmployeesList();
+      this.emp_key =this.route.snapshot.params['key'];
+
   }
 
   @Output() isLogout = new EventEmitter<void>()
@@ -43,10 +48,69 @@ export class UsersComponent implements OnInit {
       this.employees = employees;
     });
   }
- 
-  updateActive(isActive: boolean,emp:Employee) {
+  deleteEmployeeAlert(){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this data!',
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      
+      if (result.value) {
+        
+      Swal.fire(
+
+        this.deleteEmp(),
+        'Deleted!',
+        'Your imaginary file has been deleted.',
+        'success'
+      )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+      )
+      }
+    })
+  }
+
+  activeStatusAlert(isActive: boolean){
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Your status will be changed!',
+      icon: 'warning',
+      showCancelButton: false,
+      confirmButtonText: 'Yes, change it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      
+      if (result.value) {
+        
+      Swal.fire(
+
+        this.updateActiveStatus(isActive),
+        'Changed!',
+      )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire(
+        'Cancelled',
+      )
+      }
+    })
+  }
+  
+  deleteEmp() {
+    this.deleteKey = this.route.snapshot.params['key'];
+    console.log("keyyy",this.deleteKey)
     this.tasklistService
-      .updateEmployee(emp.key, { active: isActive })
+      .deleteEmployee(this.deleteKey)
+      .catch(err => console.log(err));
+  }
+
+  updateActiveStatus(isActive: boolean) {
+    this.tasklistService
+      .updateEmployee(this.emp_key, { active: isActive })
       .catch(err => console.log(err));
   }
  
@@ -54,6 +118,13 @@ export class UsersComponent implements OnInit {
     this.tasklistService
       .deleteEmployee(emp.key)
       .catch(err => console.log(err));
+  }
+
+  clearData($event){
+    let search_date;
+    search_date= document.getElementById("myInput");
+    search_date.value = ' ';
+    this.getEmployeesList();
   }
 
   onChangeEvent($event) {

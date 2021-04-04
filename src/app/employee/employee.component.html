@@ -10,32 +10,37 @@
             </li>
         </ul>
     </nav>
-  </div>
-  <div class="container-fluid" style="background-color:rgb(230, 230, 230); width:100%; height:700px;"><br>
-      <div class="row"><br>
-            <br><img src="https://th.bing.com/th/id/OIP.11bZC6aGPW5YIMX-hDIU2gHaHa?w=186&h=186&c=7&o=5&dpr=1.25&pid=1.7" width="150" height="150"><br>
-            &nbsp;&nbsp;<h3 style="color:rgb(0, 0, 102); font-size:35px; padding:20px; font-family: Georgia;">Tasks</h3>
-             <br><br>
-      </div>
-      <hr style="border-color:blue;"><br>
-      <div class="row" style="float:right;">
-        &nbsp;&nbsp;<span style="color:rgb(0, 0, 102); font-size:22px;font-family: Georgia; ">Filter:</span>&nbsp;&nbsp;<input type="date" name="text" id="myInput" (change)="onChangeEvent($event)">
-      </div><br><br>
-      <div class="row">
-        <table id="myTable">
+</div>
+<div class="container-fluid"><br>
+  <div class="row" style="margin:20px;">
+    <div class="col-12" style="text-align:right; padding-right:0px;">
+        &nbsp;<input type="date" name="date" id="myInput" (change)="onChangeEvent($event)">
+    </div><br><br>
+        <table id="myTable" class="table-responsive">
           <tr>
-            <th style="width:20%;">Assigned Date</th>
-            <th style="width:20%;" style="width:20%;">Assigned To</th>
-            <th style="width:40%;">Task Name</th>
-            <th style="width:20%;">Status</th>
+            <th style="width:10%;">Task ID</th>
+            <th style="width:10%;">Assigned Date</th>
+            <th style="width:10%;" style="width:20%;">Assigned To</th>
+            <th style="width:30%;">Task Name</th>
+            <th style="width:10%;">Priority</th>
+            <th style="width:15%;">Status</th>
+          </tr>
+        <tr *ngFor="let task  of tasks">
+            <td>{{task.id}}</td>
+            <td>{{task.assigneddate|date:'dd MMM YYYY'}}</td>
+            <td>{{task.assignedto}}</td>
+            <td>{{task.taskname}}</td>
+            <td>
+                <span class="badge badge-pill badge-danger " *ngIf="task.priority == 'High'" style="font-size:15px; color:white;">{{task.priority}}</span>&nbsp;
+                <span class="badge badge-pill badge-secondary" *ngIf="task.priority == 'Medium'" style="font-size:15px; color:white">{{task.priority}}</span>&nbsp;
+                <span class="badge badge-pill badge-success" *ngIf="task.priority == 'Low'" style="font-size:15px; color:white">{{task.priority}}</span>&nbsp;
+            </td>
+            <td>
+                <span class="badge badge-pill badge-primary" *ngIf='task.status=="In Progress"' (click)='updateTask("Completed",task)' style="font-size:15px; text-align:center;">In Progress</span>&nbsp;
+                <span class="badge badge-pill badge-success" *ngIf='task.status=="Completed"' (click)='updateTask("In Progress",task)' style="font-size:15px; text-align:center;">Completed</span>
+            </td>
         </tr>
-          <!-- <tr *ngFor ="let emp of employees">
-                <td>10-02-2021</td>
-                <td>John Joe</td>
-                <td>Task 1</td>
-                <td> In progress</td>
-          </tr> -->
-        </table>
+     </table>
     </div>     
 </div>
   
